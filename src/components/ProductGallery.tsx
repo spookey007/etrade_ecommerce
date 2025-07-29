@@ -74,9 +74,6 @@ export default function ProductGallery() {
   const { addToCart } = useCart();
 
   const handleModalSubmit = () => {
-    // Check if we're in browser environment
-    if (typeof document === 'undefined') return;
-    
     if (selectedProduct) {
       // Create a flying animation element
       const productImage = document.createElement('img');

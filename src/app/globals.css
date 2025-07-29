@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-@import url('https://fonts.cdnfonts.com/css/philly-sans');
+/* @import url('https://fonts.cdnfonts.com/css/philly-sans'); */
 @import "tailwindcss";
 
 
@@ -12,6 +12,13 @@
   --secondary: #1e293b;
   --accent: #f59e42;
   --font-sans: 'Montserrat', system-ui, sans-serif;
+}
+
+@font-face {
+  font-family: 'Philly Sans';
+  src: url('/phillysansps.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {

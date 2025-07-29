@@ -121,7 +121,7 @@ export default function CartPage() {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 mt-4">
                     <button 
-                      onClick={() => handleNavigation('/products')}
+                      onClick={() => handleNavigation('/')}
                       className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300"
                     >
                       Continue Shopping

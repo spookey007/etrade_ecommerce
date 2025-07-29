@@ -200,16 +200,13 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 	}, [width, height, updateDisplacementMap]);
 
 	const supportsSVGFilters = () => {
+		if (typeof document === "undefined") return false;
+
 		const isWebkit =
 			/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 		const isFirefox = /Firefox/.test(navigator.userAgent);
 
 		if (isWebkit || isFirefox) {
-			return false;
-		}
-
-		// Add check for document to make it SSR compatible
-		if (typeof document === "undefined") {
 			return false;
 		}
 

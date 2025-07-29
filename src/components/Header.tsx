@@ -34,24 +34,21 @@ export default function Header() {
     const newCount = getCartCount();
     if (newCount > prevCartCount.current) {
       // Trigger animation when items are added
-      // Check if we're in browser environment
-      if (typeof document !== 'undefined') {
-        const cartIcon = document.getElementById('cart-icon');
-        const mobileCartIcon = document.getElementById('mobile-cart-icon');
-        
-        if (cartIcon) {
-          cartIcon.classList.add('animate-bounce');
-          setTimeout(() => {
-            cartIcon.classList.remove('animate-bounce');
-          }, 1000);
-        }
-        
-        if (mobileCartIcon) {
-          mobileCartIcon.classList.add('animate-bounce');
-          setTimeout(() => {
-            mobileCartIcon.classList.remove('animate-bounce');
-          }, 1000);
-        }
+      const cartIcon = document.getElementById('cart-icon');
+      const mobileCartIcon = document.getElementById('mobile-cart-icon');
+      
+      if (cartIcon) {
+        cartIcon.classList.add('animate-bounce');
+        setTimeout(() => {
+          cartIcon.classList.remove('animate-bounce');
+        }, 1000);
+      }
+      
+      if (mobileCartIcon) {
+        mobileCartIcon.classList.add('animate-bounce');
+        setTimeout(() => {
+          mobileCartIcon.classList.remove('animate-bounce');
+        }, 1000);
       }
     }
     
