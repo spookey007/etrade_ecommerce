@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -35,19 +36,24 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         <nav className="p-4">
           <ul className="space-y-4">
             <li>
-              <a href="/" className="block hover:text-indigo-400" onClick={onClose}>
+              <Link href="/" className="block hover:text-indigo-400" onClick={onClose}>
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/about-us" className="block hover:text-indigo-400" onClick={onClose}>
+              <Link href="/about-us" className="block hover:text-indigo-400" onClick={onClose}>
                 About Us
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/cart" className="block hover:text-indigo-400" onClick={onClose}>
+              <Link href="/products" className="block hover:text-indigo-400" onClick={onClose}>
+                Products
+              </Link>
+            </li>
+            <li>
+              <Link href="/cart" className="block hover:text-indigo-400" onClick={onClose}>
                 Cart
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

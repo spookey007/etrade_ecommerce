@@ -30,7 +30,7 @@ export default function AboutUsPage() {
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 text-white mb-8">
           <p className="mb-4">
             ETRADE is a leading e-commerce platform dedicated to providing high-quality products and exceptional customer service. 
-            Founded in 2023, we've quickly become a trusted name in online retail.
+            Founded in 2023, we&#39;ve quickly become a trusted name in online retail.
           </p>
           
           <p className="mb-4">

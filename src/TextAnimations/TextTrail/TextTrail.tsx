@@ -30,8 +30,12 @@ const hexToRgb = (hex: string): [number, number, number] => {
 	const n = parseInt(h, 16);
 	return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 };
+
+// Add check for document to make it SSR compatible
 const loadFont = async (fam: string) => {
-	if ("fonts" in document) await (document as any).fonts.load(`64px "${fam}"`);
+	if (typeof document !== 'undefined' && "fonts" in document) {
+		await (document.fonts as unknown as { load: (font: string) => Promise<void> }).load(`64px "${fam}"`);
+	}
 };
 
 const BASE_VERT = `
@@ -149,7 +153,8 @@ const TextTrail: React.FC<TextTrailProps> = ({
 	]);
 
 	useEffect(() => {
-		if (!ref.current) return;
+		// Check if we're running in browser environment
+		if (typeof document === 'undefined' || !ref.current) return;
 
 		const size = () => ({
 			w: ref.current!.clientWidth,
@@ -158,7 +163,7 @@ const TextTrail: React.FC<TextTrailProps> = ({
 		let { w, h } = size();
 
 		const renderer = new WebGLRenderer({ antialias: true });
-		renderer.setClearColor(new Color(backgroundColor as any), 1);
+		renderer.setClearColor(new Color(backgroundColor as number), 1);
 		renderer.setPixelRatio(window.devicePixelRatio || 1);
 		renderer.setSize(w, h);
 		ref.current.appendChild(renderer.domElement);
@@ -204,7 +209,9 @@ const TextTrail: React.FC<TextTrailProps> = ({
 		);
 		scene.add(label);
 
-		const texCanvas = document.createElement("canvas");
+		const texCanvas = typeof document !== 'undefined' ? document.createElement("canvas") : null;
+		if (!texCanvas) return;
+		
 		const ctx = texCanvas.getContext("2d", {
 			alpha: true,
 			colorSpace: "srgb",
@@ -321,9 +328,14 @@ const TextTrail: React.FC<TextTrailProps> = ({
 		return () => {
 			renderer.setAnimationLoop(null);
 			clearInterval(timer);
-			ref.current?.removeEventListener("pointermove", onMove);
+			
+			// Copy ref.current to a variable to fix react-hooks/exhaustive-deps warning
+			const refCurrent = ref.current;
+			if (!refCurrent) return;
+			
+			refCurrent.removeEventListener("pointermove", onMove);
 			ro.disconnect();
-			ref.current?.removeChild(renderer.domElement);
+			refCurrent.removeChild(renderer.domElement);
 			renderer.dispose();
 			rt0.dispose();
 			rt1.dispose();

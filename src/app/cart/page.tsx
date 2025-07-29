@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack/ScrollStack';
+import Image from 'next/image';
 
 export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
@@ -66,9 +67,11 @@ export default function CartPage() {
                 <ScrollStackItem key={`${item.product._id}-${item.selectedSize}`}>
                   <div className="rounded-lg text-white flex flex-col sm:flex-row gap-4">
                     <div className="flex-shrink-0">
-                      <img 
+                      <Image 
                         src={item.product.image} 
                         alt={item.product.title} 
+                        width={96}
+                        height={96}
                         className="w-24 h-24 object-cover rounded-md"
                       />
                     </div>

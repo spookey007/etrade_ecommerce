@@ -12,7 +12,6 @@ export default function Header() {
   const router = useRouter();
   const { getCartCount } = useCart();
   const [cartCount, setCartCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const prevCartCount = useRef(0);
 
@@ -35,21 +34,24 @@ export default function Header() {
     const newCount = getCartCount();
     if (newCount > prevCartCount.current) {
       // Trigger animation when items are added
-      const cartIcon = document.getElementById('cart-icon');
-      const mobileCartIcon = document.getElementById('mobile-cart-icon');
-      
-      if (cartIcon) {
-        cartIcon.classList.add('animate-bounce');
-        setTimeout(() => {
-          cartIcon.classList.remove('animate-bounce');
-        }, 1000);
-      }
-      
-      if (mobileCartIcon) {
-        mobileCartIcon.classList.add('animate-bounce');
-        setTimeout(() => {
-          mobileCartIcon.classList.remove('animate-bounce');
-        }, 1000);
+      // Check if we're in browser environment
+      if (typeof document !== 'undefined') {
+        const cartIcon = document.getElementById('cart-icon');
+        const mobileCartIcon = document.getElementById('mobile-cart-icon');
+        
+        if (cartIcon) {
+          cartIcon.classList.add('animate-bounce');
+          setTimeout(() => {
+            cartIcon.classList.remove('animate-bounce');
+          }, 1000);
+        }
+        
+        if (mobileCartIcon) {
+          mobileCartIcon.classList.add('animate-bounce');
+          setTimeout(() => {
+            mobileCartIcon.classList.remove('animate-bounce');
+          }, 1000);
+        }
       }
     }
     
@@ -108,8 +110,6 @@ export default function Header() {
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {cartCount}
                   </span>
-                ) : isLoading ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 ) : null}
               </div>
             </Link>
@@ -126,8 +126,6 @@ export default function Header() {
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {cartCount}
                   </span>
-                ) : isLoading ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 ) : null}
               </div>
             </Link>

@@ -11,20 +11,25 @@ interface ModalProps {
 
 export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
   useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
+    const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       }
     }
-    if (isOpen) {
+    
+    // Check if we're in browser environment
+    if (typeof document !== 'undefined' && isOpen) {
       document.addEventListener('keydown', onKeyDown);
       // Prevent body scroll when modal is open
       document.body.style.overflow = 'hidden';
     }
+    
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
-      // Re-enable body scroll when modal is closed
-      document.body.style.overflow = 'auto';
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('keydown', onKeyDown);
+        // Re-enable body scroll when modal is closed
+        document.body.style.overflow = 'auto';
+      }
     };
   }, [isOpen, onClose]);
 

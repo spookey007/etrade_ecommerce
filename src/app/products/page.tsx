@@ -31,8 +31,11 @@ export default function ProductsPage() {
           <button
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-full shadow transition-colors duration-150 text-base"
             onClick={() => {
-              const section = document.getElementById('products-section');
-              if (section) section.scrollIntoView({ behavior: 'smooth' });
+              // Check if we're in browser environment
+              if (typeof document !== 'undefined') {
+                const section = document.getElementById('products-section');
+                if (section) section.scrollIntoView({ behavior: 'smooth' });
+              }
             }}
           >
             Scroll to Products

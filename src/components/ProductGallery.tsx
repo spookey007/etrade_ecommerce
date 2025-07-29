@@ -1,10 +1,11 @@
 "use client"
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import TiltedCard from './TiltedCard/TiltedCard';
 import Modal from './Modal';
 import Toast from './Toast';
 import { useCart } from './CartContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import ScrollStack, { ScrollStackItem } from './ScrollStack/ScrollStack';
 
 export interface Product {
@@ -73,6 +74,9 @@ export default function ProductGallery() {
   const { addToCart } = useCart();
 
   const handleModalSubmit = () => {
+    // Check if we're in browser environment
+    if (typeof document === 'undefined') return;
+    
     if (selectedProduct) {
       // Create a flying animation element
       const productImage = document.createElement('img');
@@ -414,9 +418,11 @@ export default function ProductGallery() {
           <div className="space-y-6">
             <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg">
               <div className="flex-shrink-0 w-16 h-16 rounded-md overflow-hidden">
-                <img 
+                <Image 
                   src={selectedProduct.image} 
                   alt={selectedProduct.title} 
+                  width={64}
+                  height={64}
                   className="w-full h-full object-cover"
                 />
               </div>

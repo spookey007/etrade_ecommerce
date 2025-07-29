@@ -2,7 +2,7 @@
 	Installed from https://reactbits.dev/ts/tailwind/
 */
 
-import React, { useEffect, useRef, useState, useId } from "react";
+import React, { useEffect, useRef, useState, useId, useCallback } from "react";
 
 export interface GlassSurfaceProps {
 	children?: React.ReactNode;
@@ -98,7 +98,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
 	const isDarkMode = useDarkMode();
 
-	const generateDisplacementMap = () => {
+	const generateDisplacementMap = useCallback(() => {
 		const rect = containerRef.current?.getBoundingClientRect();
 		const actualWidth = rect?.width || 400;
 		const actualHeight = rect?.height || 200;
@@ -124,11 +124,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     `;
 
 		return `data:image/svg+xml,${encodeURIComponent(svgContent)}`;
-	};
+	}, [borderWidth, borderRadius, redGradId, blueGradId, mixBlendMode, brightness, opacity, blur]);
 
-	const updateDisplacementMap = () => {
+	const updateDisplacementMap = useCallback(() => {
 		feImageRef.current?.setAttribute("href", generateDisplacementMap());
-	};
+	}, [generateDisplacementMap]);
 
 	useEffect(() => {
 		updateDisplacementMap();
@@ -164,6 +164,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 		xChannel,
 		yChannel,
 		mixBlendMode,
+		updateDisplacementMap,
 	]);
 
 	useEffect(() => {
@@ -178,7 +179,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 		return () => {
 			resizeObserver.disconnect();
 		};
-	}, []);
+	}, [updateDisplacementMap]);
 
 	useEffect(() => {
 		if (!containerRef.current) return;
@@ -192,11 +193,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 		return () => {
 			resizeObserver.disconnect();
 		};
-	}, []);
+	}, [updateDisplacementMap]);
 
 	useEffect(() => {
 		setTimeout(updateDisplacementMap, 0);
-	}, [width, height]);
+	}, [width, height, updateDisplacementMap]);
 
 	const supportsSVGFilters = () => {
 		const isWebkit =
@@ -204,6 +205,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 		const isFirefox = /Firefox/.test(navigator.userAgent);
 
 		if (isWebkit || isFirefox) {
+			return false;
+		}
+
+		// Add check for document to make it SSR compatible
+		if (typeof document === "undefined") {
 			return false;
 		}
 
