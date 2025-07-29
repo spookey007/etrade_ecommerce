@@ -1,0 +1,222 @@
+{
+  "website": {
+    "name": "Fashion Store",
+    "theme": "Dark Theme",
+    "sections": [
+      {
+        "section": "Header",
+        "components": [
+          {
+            "type": "Logo",
+            "position": "Top Left",
+            "style": {
+              "color": "White",
+              "background": "None"
+            }
+          },
+          {
+            "type": "Navigation Menu",
+            "items": [
+              "Summer Trends",
+              "Summer BBQ",
+              "Cooking pleasure & Provence",
+              "Specials & Sale",
+              "CMS",
+              "Products"
+            ],
+            "position": "Top Center",
+            "style": {
+              "textColor": "White",
+              "hoverColor": "Light Gray"
+            }
+          },
+          {
+            "type": "Search Bar",
+            "placeholder": "Search for products...",
+            "position": "Top Right",
+            "style": {
+              "backgroundColor": "Gray",
+              "borderRadius": "5px"
+            }
+          },
+          {
+            "type": "Cart Icon",
+            "position": "Top Right",
+            "style": {
+              "color": "White"
+            }
+          }
+        ]
+      },
+      {
+        "section": "Hero Section",
+        "components": [
+          {
+            "type": "Main Image",
+            "imageURL": "hero-image.jpg",
+            "altText": "Model wearing a light cloth",
+            "position": "Center",
+            "style": {
+              "width": "100%",
+              "height": "auto"
+            }
+          },
+          {
+            "type": "Product Overlay",
+            "text": "LIGHT CLOTH TAPE BRIGHT",
+            "price": "€139.00 EUR",
+            "position": "Bottom Center",
+            "style": {
+              "backgroundColor": "Blue",
+              "color": "White",
+              "padding": "5px 10px",
+              "borderRadius": "5px"
+            }
+          }
+        ]
+      },
+      {
+        "section": "Side Products",
+        "components": [
+          {
+            "type": "Product Card",
+            "imageURL": "beanie-grey.jpg",
+            "altText": "Beanie - Grey",
+            "title": "Beanie - Grey",
+            "price": "€59.00 EUR",
+            "position": "Right Side",
+            "style": {
+              "width": "200px",
+              "height": "auto"
+            }
+          },
+          {
+            "type": "Product Card",
+            "imageURL": "pullover-v-neck.jpg",
+            "altText": "Kaschmir Pullover V-Neck - Grau Women",
+            "title": "Kaschmir Pullover V-Neck - Grau Women",
+            "price": "€279.00 EUR",
+            "position": "Right Side",
+            "style": {
+              "width": "200px",
+              "height": "auto"
+            }
+          }
+        ]
+      },
+      {
+        "section": "Product Gallery",
+        "components": [
+          {
+            "type": "Carousel",
+            "items": [
+              {
+                "imageURL": "shorts-lorcan.jpg",
+                "altText": "Lorcan Shorts",
+                "title": "Lorcan",
+                "price": "€69.95 EUR"
+              },
+              {
+                "imageURL": "dress-lauren.jpg",
+                "altText": "Lauren Dress",
+                "title": "Lauren",
+                "price": "€89.95 EUR"
+              },
+              {
+                "imageURL": "swimsuit-lulaby.jpg",
+                "altText": "Lulaby Swimsuit",
+                "title": "Lulaby",
+                "price": "€64.95 EUR"
+              },
+              {
+                "imageURL": "jeans-lexa.jpg",
+                "altText": "Lexa Denim Blue Bleach",
+                "title": "Lexa Denim Blue Bleach",
+                "price": "€59.95 EUR"
+              },
+              {
+                "imageURL": "shorts-efiso.jpg",
+                "altText": "Efiso Block Blue Shorts",
+                "title": "Efiso Block Blue",
+                "price": "€49.95 EUR"
+              },
+              {
+                "imageURL": "shorts-lorcan-blue.jpg",
+                "altText": "Lorcan Shorts (Blue)",
+                "title": "Lorcan",
+                "price": "€69.95 EUR"
+              },
+              {
+                "imageURL": "dress-lauren-red.jpg",
+                "altText": "Lauren Dress (Red)",
+                "title": "Lauren",
+                "price": "€89.95 EUR"
+              }
+            ],
+            "position": "Center",
+            "style": {
+              "display": "flex",
+              "flexWrap": "wrap",
+              "justifyContent": "space-between"
+            }
+          }
+        ]
+      },
+      {
+        "section": "Footer",
+        "components": [
+          {
+            "type": "Footer Links",
+            "columns": [
+              {
+                "title": "NEXTJS COMMERCE WITH SHOPWARE",
+                "links": [
+                  "Shopware Composable Frontends"
+                ]
+              },
+              {
+                "title": "Shop service",
+                "links": [
+                  "Defective Product",
+                  "Payment / Dispatch"
+                ]
+              },
+              {
+                "title": "Information",
+                "links": [
+                  "General terms & conditions",
+                  "Contact",
+                  "Imprint"
+                ]
+              }
+            ],
+            "position": "Bottom",
+            "style": {
+              "backgroundColor": "Black",
+              "color": "White",
+              "padding": "20px 0"
+            }
+          },
+          {
+            "type": "Copyright",
+            "text": "© 2023-2025 Next.js Commerce with Shopware Composable Frontends. All rights reserved.",
+            "position": "Bottom Center",
+            "style": {
+              "color": "Gray"
+            }
+          },
+          {
+            "type": "Logo",
+            "imageURL": "shopware-logo.png",
+            "altText": "Shopware Logo",
+            "position": "Bottom Right",
+            "style": {
+              "width": "50px",
+              "height": "auto"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

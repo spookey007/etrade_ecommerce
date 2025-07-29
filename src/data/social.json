@@ -1,0 +1,29 @@
+{
+  "socialLinks": [
+    {
+      "name": "Facebook",
+      "url": "https://facebook.com/etrade",
+      "icon": "facebook"
+    },
+    {
+      "name": "Twitter",
+      "url": "https://twitter.com/etrade",
+      "icon": "twitter"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://instagram.com/etrade",
+      "icon": "instagram"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://linkedin.com/company/etrade",
+      "icon": "linkedin"
+    },
+    {
+      "name": "YouTube",
+      "url": "https://youtube.com/etrade",
+      "icon": "youtube"
+    }
+  ]
+}
