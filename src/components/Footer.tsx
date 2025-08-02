@@ -50,11 +50,8 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-black text-white py-4 px-4 border-t border-gray-800">
+    <footer className="bg-black text-white py-2 px-4 border-t border-gray-800">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="text-gray-400 text-sm">
-          © 2023-2025 ETRADE
-        </div>
         
         <div className="flex space-x-4">
           {socialLinks.map((social, index) => (
@@ -96,6 +93,9 @@ export default function Footer() {
               </div>
             </a>
           ))}
+        </div>
+        <div className="text-gray-400 text-sm">
+          © 2023-2025 ETRADE
         </div>
       </div>
     </footer>

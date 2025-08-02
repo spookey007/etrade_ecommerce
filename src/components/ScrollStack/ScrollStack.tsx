@@ -1,6 +1,7 @@
 /*
 	Installed from https://reactbits.dev/ts/tailwind/
 */
+"use client";
 
 import React, { ReactNode, useLayoutEffect, useRef, useCallback } from "react";
 import Lenis from "lenis";
@@ -38,21 +39,23 @@ interface ScrollStackProps {
 	rotationAmount?: number;
 	blurAmount?: number;
 	onStackComplete?: () => void;
+	reducedMotion?: boolean;
 }
 
 const ScrollStack: React.FC<ScrollStackProps> = ({
 	children,
 	className = "",
-	itemDistance = 100,
-	itemScale = 0.03,
-	itemStackDistance = 30,
-	stackPosition = "20%",
-	scaleEndPosition = "10%",
-	baseScale = 0.85,
+	itemDistance = 60,
+	itemScale = 0.02,
+	itemStackDistance = 20,
+	stackPosition = "15%",
+	scaleEndPosition = "8%",
+	baseScale = 0.9,
 	scaleDuration = 0.5,
 	rotationAmount = 0,
 	blurAmount = 0,
 	onStackComplete,
+	reducedMotion = false,
 }) => {
 	const scrollerRef = useRef<HTMLDivElement>(null);
 	const stackCompletedRef = useRef(false);
@@ -113,6 +116,31 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 				const triggerEnd = cardTop - scaleEndPositionPx;
 				const pinStart = cardTop - stackPositionPx - itemStackDistance * i;
 				const pinEnd = endElementTop - containerHeight / 2;
+
+				// If reduced motion is enabled, simplify the transforms
+				if (reducedMotion) {
+					const newTransform = {
+						translateY: 0,
+						scale: 1,
+						rotation: 0,
+						blur: 0,
+					};
+
+					const lastTransform = lastTransformsRef.current.get(i);
+					const hasChanged =
+						!lastTransform ||
+						lastTransform.translateY !== newTransform.translateY ||
+						lastTransform.scale !== newTransform.scale ||
+						lastTransform.rotation !== newTransform.rotation ||
+						lastTransform.blur !== newTransform.blur;
+
+					if (hasChanged) {
+						card.style.transform = "translate3d(0, 0, 0) scale(1)";
+						card.style.filter = "";
+						lastTransformsRef.current.set(i, newTransform);
+					}
+					return;
+				}
 
 				const scaleProgress = calculateProgress(
 					scrollTop,
@@ -206,6 +234,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 		onStackComplete,
 		calculateProgress,
 		parsePercentage,
+		reducedMotion,
 	]);
 
 	const handleScroll = useCallback(() => {
@@ -227,16 +256,18 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 		const lenis = new Lenis({
 			wrapper: scroller,
 			content: scrollInner,
-			duration: 1.2,
-			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-			smoothWheel: true,
-			touchMultiplier: 2,
+			duration: reducedMotion ? 0.5 : 1.2,
+			easing: reducedMotion 
+				? (t) => t 
+				: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+			smoothWheel: !reducedMotion,
+			touchMultiplier: reducedMotion ? 1 : 2,
 			infinite: false,
 			gestureOrientation: "vertical",
-			wheelMultiplier: 1,
-			lerp: 0.1,
-			syncTouch: true,
-			syncTouchLerp: 0.075,
+			wheelMultiplier: reducedMotion ? 0.5 : 1,
+			lerp: reducedMotion ? 0.3 : 0.1,
+			syncTouch: !reducedMotion,
+			syncTouchLerp: reducedMotion ? 0.1 : 0.075,
 		});
 
 		lenis.on("scroll", handleScroll);
@@ -251,7 +282,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 
 		lenisRef.current = lenis;
 		return lenis;
-	}, [handleScroll]);
+	}, [handleScroll, reducedMotion]);
 
 	useLayoutEffect(() => {
 		const scroller = scrollerRef.current;
@@ -354,7 +385,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 				willChange: "scroll-position",
 			}}
 		>
-			<div className="scroll-stack-inner pt-[10vh]  pb-[50rem] min-h-screen">
+			<div className="scroll-stack-inner pt-[10vh] pb-[20rem] min-h-screen">
 				{children}
 				{/* Spacer so the last pin can release cleanly */}
 				<div className="scroll-stack-end w-full h-px" />

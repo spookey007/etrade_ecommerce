@@ -1,8 +1,8 @@
 import ProductCard from './ProductCard';
 
 const sideProducts = [
-  { imageURL: '/beanie-grey.jpg', altText: 'Beanie - Grey', title: 'Beanie - Grey', price: '€59.00 EUR' },
-  { imageURL: '/pullover-v-neck.jpg', altText: 'Kaschmir Pullover V-Neck - Grau Women', title: 'Kaschmir Pullover V-Neck - Grau Women', price: '€279.00 EUR' }
+  { image: '/beanie-grey.jpg', title: 'Beanie - Grey', price: 59 },
+  { image: '/pullover-v-neck.jpg', title: 'Kaschmir Pullover V-Neck - Grau Women', price: 279 }
 ];
 
 export default function SideProducts() {

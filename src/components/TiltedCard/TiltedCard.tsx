@@ -5,9 +5,10 @@
 import type { SpringOptions } from "framer-motion";
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import Image from "next/image";
 
 interface TiltedCardProps {
-	imageSrc: React.ComponentProps<"img">["src"];
+	imageSrc: string;
 	altText?: string;
 	captionText?: string;
 	containerHeight?: React.CSSProperties["height"];
@@ -120,15 +121,25 @@ export default function TiltedCard({
 					scale,
 				}}
 			>
-				<motion.img
-					src={imageSrc}
-					alt={altText}
-					className="absolute top-0 left-0 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)]"
+				<motion.div
+					className="absolute top-0 left-0 w-full h-full"
 					style={{
 						width: imageWidth,
 						height: imageHeight,
 					}}
-				/>
+				>
+					<Image
+						src={imageSrc}
+						alt={altText}
+						fill
+						quality={30}
+						loading="lazy"
+						placeholder="blur"
+						blurDataURL={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23374151'/%3E%3C/svg%3E`}
+						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						className="object-cover rounded-[15px] will-change-transform [transform:translateZ(0)]"
+					/>
+				</motion.div>
 
 				{displayOverlayContent && overlayContent && (
 					<motion.div className="">

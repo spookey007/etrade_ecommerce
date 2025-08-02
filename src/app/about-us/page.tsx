@@ -1,30 +1,9 @@
-'use client';
-
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import LoadingAnimation from '../../components/LoadingAnimation';
+import Layout from '@/components/Layout';
 
 export default function AboutUsPage() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleNavigation = (href: string) => {
-    setIsLoading(true);
-    
-    // Simulate a small delay to show the loading animation
-    setTimeout(() => {
-      router.push(href);
-      setIsLoading(false);
-    }, 500);
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-transparent">
-      {isLoading && <LoadingAnimation />}
-      <Header />
-      <main className="flex-grow max-w-4xl mx-auto w-full px-4 py-8 mt-20">
+    <Layout>
+      <main className="flex-grow max-w-4xl mx-auto w-full px-4 py-8">
         <h1 className="text-3xl font-bold mb-6 text-white">About ETRADE</h1>
         
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 text-white mb-8">
@@ -68,17 +47,8 @@ export default function AboutUsPage() {
             </ul>
           </div>
         </div>
-        
-        <div className="mt-8 text-center">
-          <button
-            onClick={() => handleNavigation('/')}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300"
-          >
-            Back to Home
-          </button>
-        </div>
+
       </main>
-      <Footer />
-    </div>
+    </Layout>
   );
 }

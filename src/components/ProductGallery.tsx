@@ -44,7 +44,7 @@ export default function ProductGallery() {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedVariation, setSelectedVariation] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const productsPerPage = 8; // Number of products per page
+  const productsPerPage = 12; // Increased number of products per page
 
   useEffect(() => {
     fetch('/products.json')
@@ -75,9 +75,9 @@ export default function ProductGallery() {
 
   const handleModalSubmit = () => {
     if (selectedProduct) {
-      // Create a flying animation element
+      // Create a flying animation element - use a lower quality version for better performance
       const productImage = document.createElement('img');
-      productImage.src = selectedProduct.image;
+      productImage.src = `${selectedProduct.image}?w=64&q=30`;
       productImage.className = 'fixed w-16 h-16 rounded-full z-50 pointer-events-none';
       productImage.style.left = '0px';
       productImage.style.top = '0px';
@@ -158,16 +158,13 @@ export default function ProductGallery() {
 
   return (
     <section
-      className="w-full py-2 px-6 bg-transparent"
+      className="w-full bg-transparent"
       id="products-section"
     >
       <div className="max-w-7xl mx-auto">
         {/* Desktop view - regular grid */}
         <div 
-          className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-12 p-4 scrollbar-custom"
-          style={{
-            minHeight: '850px',
-          }}
+          className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-2 scrollbar-custom pt-40"
         >
           {isLoading ? (
             <div className="flex justify-center items-center h-full col-span-full">
@@ -183,9 +180,9 @@ export default function ProductGallery() {
                   imageSrc={p.image}
                   altText={p.title}
                   captionText={p.title}
-                  containerHeight="400px"
+                  containerHeight="300px"
                   containerWidth="100%"
-                  imageHeight="400px"
+                  imageHeight="300px"
                   imageWidth="100%"
                   rotateAmplitude={6}
                   scaleOnHover={1.02}
@@ -253,7 +250,7 @@ export default function ProductGallery() {
         </div>
         
         {/* Mobile view - ScrollStack */}
-        <div className="sm:hidden h-[calc(100vh-8rem)] overflow-hidden">
+        <div className="sm:hidden h-[calc(100vh-6rem)] overflow-hidden">
           {isLoading ? (
             <div className="flex justify-center items-center h-full">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
@@ -261,8 +258,8 @@ export default function ProductGallery() {
           ) : getCurrentPageProducts().length > 0 ? (
             <ScrollStack 
               itemDistance={10}
-              itemScale={0.015}
-              itemStackDistance={15}
+              itemScale={0.0015}
+              itemStackDistance={5}
               stackPosition="5%"
               scaleEndPosition="8%"
               baseScale={0.92}
@@ -275,9 +272,9 @@ export default function ProductGallery() {
                       imageSrc={p.image}
                       altText={p.title}
                       captionText={p.title}
-                      containerHeight="400px"
+                      containerHeight="350px"
                       containerWidth="100%"
-                      imageHeight="400px"
+                      imageHeight="350px"
                       imageWidth="100%"
                       rotateAmplitude={6}
                       scaleOnHover={1.02}
@@ -351,7 +348,7 @@ export default function ProductGallery() {
         </div>
         
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-2 mt-12">
+          <div className="flex justify-center items-center gap-2 mt-2 mb-2">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1 || isLoading}
@@ -363,8 +360,8 @@ export default function ProductGallery() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                 </svg>
               )}
             </button>
@@ -403,7 +400,7 @@ export default function ProductGallery() {
                 </svg>
               ) : (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               )}
             </button>
@@ -420,7 +417,12 @@ export default function ProductGallery() {
                   alt={selectedProduct.title} 
                   width={64}
                   height={64}
+                  quality={30}
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23374151'/%3E%3C/svg%3E`}
                   className="w-full h-full object-cover"
+                  sizes="64px"
                 />
               </div>
               <div>
